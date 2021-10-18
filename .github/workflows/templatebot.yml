@@ -21,4 +21,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Find and Add Templates
-        run: ./automation/teplate-the-world.sh
+        run: ./.automation/teplate-the-world.sh
