@@ -391,7 +391,7 @@ CleanupWorkspace()
   #############################
   # Check if directory exists #
   #############################
-  if [ -d "${REPO_NAME}" ];
+  if [ -d "${REPO_NAME}" ]; then
     echo "ERROR! Failed to cleanup workspace at:[${REPO_NAME}]"
     echo "ERROR:[${CLEAN_CMD}]"
     exit 1
