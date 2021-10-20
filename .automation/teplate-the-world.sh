@@ -10,7 +10,7 @@
 # of all repos for an organization.
 # It will then check for PRs that it would have created, if not found,
 # it will create a Pull Request on the repository to help install
-# templates to help make the repository better
+# templates to help make the repository follow basic standards
 #
 # PREREQS:
 # You need to have the following to run this script successfully:

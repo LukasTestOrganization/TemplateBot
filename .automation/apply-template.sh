@@ -6,7 +6,9 @@
 ################################################################################
 
 # LEGEND:
-
+# This script will find the template that should be applied to the repository
+# and add the files in the current branch, and push the code to the repository
+# It will also clean up the template bot workflow to clean up the code base
 #
 # PREREQS:
 # You need to have the following to run this script successfully:
