@@ -243,7 +243,7 @@ TemplateRepo() {
   # push the code
   # create pull request
   # issueOps?
-  CLONE_CMD=$(git clone --depth 1 https://github.com/${ORG_NAME}/${REPO_NAME} 2>&1)
+  CLONE_CMD=$(git clone --depth 1 "https://github.com/${ORG_NAME}/${REPO_NAME}" 2>&1)
 
   #######################
   # Load the error code #
@@ -271,7 +271,7 @@ TemplateRepo() {
   #########################
   if [ ! -f "${REPO_NAME}/.github/workflows/${TEMPLATE_NAME}" ]; then
     echo "ERROR! Failed to get file into place!"
-    echo "ERROR:[COPY_CMD]"
+    echo "ERROR:[${COPY_CMD}]"
     # Run cleanup
     CleanupWorkspace "${REPO_NAME}"
     exit 1
@@ -309,7 +309,7 @@ TemplateRepo() {
   ###############################
   # Get the default branch name #
   ###############################
-  DEFAULT_BRANCH=$(cd ${REPO_NAME} || exit 1; git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+  DEFAULT_BRANCH=$(cd "${REPO_NAME}" || exit 1; git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
   debug "DEFAULT_BRANCH:${DEFAULT_BRANCH}"
 
   #######################################
@@ -360,7 +360,7 @@ TemplateRepo() {
 #### Function FormatPRBody #####################################################
 FormatPRBody() {
   # Need to format the PR_BODY file into a string with literal \n
-  PR_BODY_STRING=$(cat "${PR_BODY}" |awk '{printf "%s\\n", $0}')
+  PR_BODY_STRING=$(awk '{printf "%s\\n", $0}' "${PR_BODY}")
 
   debug "PR_BODY_STRING:[${PR_BODY_STRING}]"
 
