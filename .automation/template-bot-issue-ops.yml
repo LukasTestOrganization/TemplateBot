@@ -51,4 +51,9 @@ jobs:
       # Run the templatebot script to apply template to repository #
       ##############################################################
       - name: Run TemplateBot
-        run: ./.automation/apply-template.sh
+        env:
+          BODY: ${{ github.event.pull_request.body }}
+          REF: ${{ github.event.head_ref }}
+          REPO: ${{github.repository}}
+          PR: ${{ github.event.number }}
+        run: ./.automation/apply-template.sh "${BODY}" "${REF}" "${REPO}" "${PR}"

@@ -7,11 +7,20 @@ This tool is powered by **GitHub Actions** and **IssueOps**. Please select the c
 
 Thank You!
 
-| Selection | Template Name | Includes                   |
-| --------- | ------------- | -------------------------- |
-| [ ]       | Template 1    | README, Basic CI, Security |
-| [ ]       | Template 2    | NodeJS App                 |
-| [ ]       | Template 3    | Python App                 |
+| Template Name | Includes                   |
+| ------------- | -------------------------- |
+| Template1     | README, Basic CI, Security |
+| Template2     | NodeJS App                 |
+| Template3     | Python App                 |
+
+## Selection
+
+Please check the box below to have that template applied to your repository.
+**Note:** Please only select `1` template!
+
+- [ ] Template1
+- [ ] Template2
+- [ ] Template3
 
 ## How this works
 
