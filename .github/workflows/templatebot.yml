@@ -38,6 +38,30 @@ jobs:
           private-key: ${{ secrets.PRIVATE_KEY }}
           app-id: ${{ secrets.APP_ID }}
 
+      - name: Create the GitHub Secret
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const sodium = require('tweetsodium')
+            const key = "base64-encoded-public-key"
+            const value = ${{ steps.get-token.outputs.token }}
+
+            // Convert the message and key to Uint8Array's (Buffer implements that interface)
+            const messageBytes = Buffer.from(value)
+            const keyBytes = Buffer.from(key, 'base64')
+            // Encrypt using LibSodium.
+            const encryptedBytes = sodium.seal(messageBytes, keyBytes)
+            // Base64 the encrypted secret
+            const encrypted = Buffer.from(encryptedBytes).toString('base64')
+            console.log(encrypted)
+
+            github.rest.actions.createOrUpdateSecret({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              secret_name: 'TEMPLATE_BOT_TOKEN',
+              encrypted_value: encrypted
+            })
+
       ##################################################
       # Checks-out TemplateBot under $GITHUB_WORKSPACE #
       ##################################################
@@ -50,7 +74,7 @@ jobs:
       - name: Find and Add Templates
         env:
           DEBUG: true
-          GITHUB_TOKEN: ${{ secrets.AWKBAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TEMPLATE_BOT_TOKEN }}
           #GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
           ORG_NAME: "lukastestorganization"
         run: ./.automation/template-the-world.sh
