@@ -45,4 +45,5 @@ jobs:
         env:
           DEBUG: true
           GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
+          ORG_NAME: "lukastestorganization"
         run: ./.automation/template-the-world.sh
