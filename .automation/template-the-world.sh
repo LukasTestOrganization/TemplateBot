@@ -292,7 +292,7 @@ TemplateRepo() {
   # push the code
   # create pull request
   # issueOps?
-  CLONE_CMD=$(git clone --depth 1 "https://${GITHUB_TOKEN}@github.com/${ORG_NAME}/${REPO_NAME}" 2>&1)
+  CLONE_CMD=$(git clone --depth 1 "https://${GITHUB_TOKEN}@github.com/${ORG_NAME}/${REPO_NAME}.git" 2>&1)
 
   #######################
   # Load the error code #
