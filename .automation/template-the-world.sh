@@ -85,12 +85,33 @@ GetRepos()
   Debug "DEBUG --- End Cursor:[${END_CURSOR}]"
 
   #####################################
+  # Update orgname string with quotes #
+  #####################################
+  # Needs to be quoted to allow special chars
+  O_STRING=''           # Set to empty
+  O_STRING='\"'         # Adding the delimit
+  O_STRING+="${ORG_NAME}" # Add the name
+  O_STRING+='\"'        # Add the delimit
+
+  #####################################
+  # Update the end_cursor if not null #
+  #####################################
+  # Needs to be quoted if not null
+  END_CURSOR_STRING=''                  # Set to empty
+  END_CURSOR_STRING="${END_CURSOR}"
+  if [[ "${END_CURSOR}" != "null" ]]; then
+    END_CURSOR_STRING='\"'
+    END_CURSOR_STRING+="${END_CURSOR}"
+    END_CURSOR_STRING+='\"'
+  fi
+
+  #####################################
   # Grab all the data from the system #
   #####################################
   DATA_BLOCK=$(curl -s -X POST \
     -H "authorization: Bearer ${GITHUB_TOKEN}" \
     -H "content-type: application/json" \
-    -d "{\"query\":\"query { organization(login: ${ORG_NAME}) { repositories(first: ${PAGE_SIZE}, after: ${END_CURSOR}) { nodes { name } pageInfo { hasNextPage endCursor }}}}\"}" \
+    -d '{"query":"query { organization(login: '"${ORG_NAME}"') { repositories(first: '"${PAGE_SIZE}"', after: '"${END_CURSOR}"') { nodes { name } pageInfo { hasNextPage endCursor }}}}"}' \
     "${GRAPHQL_URL}" 2>&1)
 
   #######################
