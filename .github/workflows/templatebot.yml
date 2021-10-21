@@ -45,4 +45,4 @@ jobs:
       - name: Find and Add Templates
         env:
           GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
-        run: ./.automation/teplate-the-world.sh
+        run: ./.automation/template-the-world.sh
