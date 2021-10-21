@@ -3,7 +3,6 @@
 # TemplateBot workflow to find repositories #
 # and insert templates                      #
 #############################################
-
 name: TemplateBot
 
 #################################################
