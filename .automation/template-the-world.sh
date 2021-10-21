@@ -25,11 +25,11 @@
 GITHUB_API='https://api.github.com' # API URL
 GRAPHQL_URL="$GITHUB_API/graphql"   # URL endpoint to graphql
 DEBUG="${DEBUG:-false}"             # Set to 'true' to enable debugging
+GITHUB_TOKEN="${GITHUB_TOKEN:-}"    # GitHub Token to auth
 PAGE_SIZE=100      # Default is 100, GitHub limit is 100
 END_CURSOR='null'  # Set to null, will be updated after call
 TOTAL_REPO_COUNT=0 # Counter of all repos found
 ORG_REPOS=()       # Array of all repos found in Org
-
 
 #################
 # Template info #
@@ -62,6 +62,14 @@ Header()
 #### Function GetRepos #########################################################
 GetRepos()
 {
+  ############################
+  # Validate we have a token #
+  ############################
+  if [ -z "${GITHUB_TOKEN}" ] || [ "${#GITHUB_TOKEN}" -ne 40 ]; then
+    echo "ERROR! We need a valid GitHub Token to Query the system!"
+    exit 1
+  fi
+  
   #######################
   # Debug To see cursor #
   #######################
@@ -71,7 +79,7 @@ GetRepos()
   # Grab all the data from the system #
   #####################################
   DATA_BLOCK=$(curl -s -X POST \
-    -H "authorization: Bearer ${GITHUB_PAT}" \
+    -H "authorization: Bearer ${GITHUB_TOKEN}" \
     -H "content-type: application/json" \
     -d "{\"query\":\"query { organization(login: ${ORG_NAME}) { repositories(first: ${PAGE_SIZE}, after: ${END_CURSOR}) { nodes { name } pageInfo { hasNextPage endCursor }}}}\"}" \
     "${GRAPHQL_URL}" 2>&1)
@@ -171,7 +179,7 @@ GetRepoPRs()
     # Grab all the data from the system #
     #####################################
     DATA_BLOCK=$(curl -s -X POST \
-      -H "authorization: Bearer ${GITHUB_PAT}" \
+      -H "authorization: Bearer ${GITHUB_TOKEN}" \
       -H "content-type: application/json" \
       -d "{\"query\":\"{ search(type: ISSUE, query: \"repo:${ORG_NAME}/${REPO_NAME} label:template\", first: 5, after: null) { nodes { ... on PullRequest { number id labels(first: 100, after: null) { nodes { name } } } } pageInfo { hasNextPage endCursor } } }\"}" \
       "${GRAPHQL_URL}" 2>&1)
