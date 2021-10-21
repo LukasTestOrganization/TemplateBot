@@ -56,4 +56,5 @@ jobs:
           REF: ${{ github.event.head_ref }}
           REPO: ${{github.repository}}
           PR: ${{ github.event.number }}
+          DEBUG: true
         run: ./.automation/apply-template.sh "${BODY}" "${REF}" "${REPO}" "${PR}"

@@ -24,11 +24,12 @@
 ###########
 GITHUB_API='https://api.github.com' # API URL
 GRAPHQL_URL="$GITHUB_API/graphql"   # URL endpoint to graphql
+DEBUG="${DEBUG:-false}"             # Set to 'true' to enable debugging
 PAGE_SIZE=100      # Default is 100, GitHub limit is 100
 END_CURSOR='null'  # Set to null, will be updated after call
 TOTAL_REPO_COUNT=0 # Counter of all repos found
 ORG_REPOS=()       # Array of all repos found in Org
-DEBUG=''           # Set to 'true' to enable debugging
+
 
 #################
 # Template info #

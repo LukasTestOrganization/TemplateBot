@@ -20,8 +20,8 @@
 # GLOBALS #
 ###########
 GITHUB_API='https://api.github.com' # API URL
-DEBUG=''           # Set to 'true' to enable debugging
-TEMPLATE=''        # Pulled form the body | template1, template2, etc...
+DEBUG="${DEBUG:-false}" # Set to 'true' to enable debugging
+TEMPLATE=''             # Pulled form the body | template1, template2, etc...
 ##############
 # Input vars #
 ##############
