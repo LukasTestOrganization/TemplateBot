@@ -4,11 +4,13 @@ This folder contains the automations needed to run the **TemplateBot** on a user
 Below is information on the various components.
 
 ---
+
 ## template-the-world.sh
 
 This is the main brains of the **TemplateBot**. This script uses GitHub Graphql API to find all repositories in the organization, and query if they have had a template applied to them.
 If no template or blocking topic is found, then the script clones the users repository, adds the **GitHub Action** `template-bot-issue-ops.yml` and creates an Open Pull Request.
 This will then let the users decide what template they would like to have applied to their repository.
+
 ---
 
 ## template-bot-issue-ops.yml
