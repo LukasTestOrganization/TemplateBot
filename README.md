@@ -8,7 +8,7 @@ Its goal is to help ensure your users repositories have basic *files*, *template
 The **TemplateBot** works in the following way:
 
 - **Clone** this repository to your Organization
-  - The access rights should be `public`, or `internal`
+  - The access rights to the repository should be `public`, or `internal`
 - Create An Organization level **GitHub App** called **TemplateBot**
   - Full details can be found in the `Create GitHub App` section
 - Store the `App Id` and `Private Key` in the *TemplateBot** repository as secrets
