@@ -42,6 +42,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
+            npm install tweetsodium
             const sodium = require('tweetsodium')
             const key = "base64-encoded-public-key"
             const value = ${{ steps.get-token.outputs.token }}
