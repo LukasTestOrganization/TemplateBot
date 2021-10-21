@@ -133,13 +133,15 @@ Cleanup() {
   ##############################
   # Remove the TemplateBot dir #
   ##############################
-  REMOVE_WORKFLOW_CMD=$(rm -rf "${TEMPLATEBOT_DIR}" 2>&1)
+  REMOVE_TEMPLATEBOT_CMD=$(rm -rf "${TEMPLATEBOT_DIR}" 2>&1)
+  debug "REMOVE_TEMPLATEBOT_CMD:[${REMOVE_TEMPLATEBOT_CMD}]"
 
   ############################
   # Check if the file exists #
   ############################
   if [ -d "${TEMPLATEBOT_DIR}" ]; then
     echo "ERROR! FOlder still exists at:[${TEMPLATEBOT_DIR}]"
+    echo "ERROR:[${REMOVE_TEMPLATEBOT_CMD}]"
     exit 1
   else
     echo "Successfully removed TemplateBot cloned folder"
@@ -149,6 +151,7 @@ Cleanup() {
   # Remove the Workflow file #
   ############################
   REMOVE_WORKFLOW_CMD=$(rm -f ".github/workflows/${TEMPLATEBOT_WORKFLOW}" 2>&1)
+  debug "REMOVE_WORKFLOW_CMD:[${REMOVE_WORKFLOW_CMD}]"
 
   ############################
   # Check if the file exists #
