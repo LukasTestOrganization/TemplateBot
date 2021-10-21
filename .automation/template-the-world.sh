@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 ################################################################################
 ################################################################################
 ####### Template all Repos in org @AdmiralAwkbar ###############################
@@ -69,7 +69,7 @@ GetRepos()
     echo "ERROR! We need a valid GitHub Token to Query the system!"
     exit 1
   fi
-  
+
   #######################
   # Debug To see cursor #
   #######################
