@@ -201,6 +201,16 @@ ParseRepoData()
 #### Function GetRepoPRs #######################################################
 GetRepoPRs()
 {
+
+  #####################################
+  # Update orgname string with quotes #
+  #####################################
+  # Needs to be quoted to allow special chars
+  Q_STRING='' # Set to empty
+  Q_STRING='\"' # Adding the delimit
+  Q_STRING+="repo:${ORG_NAME}/${REPO_NAME} label:template" # Add the name
+  Q_STRING+='\"' # Add the delimit
+
   ##############################################
   # Loop through repos and get PRs from search #
   ##############################################
@@ -211,7 +221,7 @@ GetRepoPRs()
     DATA_BLOCK=$(curl -s -X POST \
       -H "authorization: Bearer ${GITHUB_TOKEN}" \
       -H "content-type: application/json" \
-      -d "{\"query\":\"{ search(type: ISSUE, query: \"repo:${ORG_NAME}/${REPO_NAME} label:template\", first: 5, after: null) { nodes { ... on PullRequest { number id labels(first: 100, after: null) { nodes { name } } } } pageInfo { hasNextPage endCursor } } }\"}" \
+      -d '{"query":"{ search(type: ISSUE, query: '"${Q_STRING}"', first: 5, after: null) { nodes { ... on PullRequest { number id labels(first: 100, after: null) { nodes { name } } } } pageInfo { hasNextPage endCursor } } }"}' \
       "${GRAPHQL_URL}" 2>&1)
 
     #######################
