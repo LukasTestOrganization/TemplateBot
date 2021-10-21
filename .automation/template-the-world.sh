@@ -314,7 +314,7 @@ TemplateRepo() {
   #########################################
   # Copy the workflow into the repository #
   #########################################
-  COPY_CMD=$(mkdir "${REPO_NAME}.github/workflows" || exit 1; cp "${WORKFLOW_TEMPLATE}" "${REPO_NAME}/.github/workflows/${TEMPLATE_NAME}")
+  COPY_CMD=$(mkdir -p "${REPO_NAME}/.github/workflows" || exit 1; cp "${WORKFLOW_TEMPLATE}" "${REPO_NAME}/.github/workflows/${TEMPLATE_NAME}")
 
   #########################
   # Check the file exists #
