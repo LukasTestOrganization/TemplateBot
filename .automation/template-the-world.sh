@@ -111,7 +111,7 @@ GetRepos()
   DATA_BLOCK=$(curl -s -X POST \
     -H "authorization: Bearer ${GITHUB_TOKEN}" \
     -H "content-type: application/json" \
-    -d '{"query":"query { organization(login: '"${ORG_NAME}"') { repositories(first: '"${PAGE_SIZE}"', after: '"${END_CURSOR}"') { nodes { name } pageInfo { hasNextPage endCursor }}}}"}' \
+    -d '{"query":"query { organization(login: '"${O_STRING}"') { repositories(first: '"${PAGE_SIZE}"', after: '"${END_CURSOR_STRING}"') { nodes { name } pageInfo { hasNextPage endCursor }}}}"}' \
     "${GRAPHQL_URL}" 2>&1)
 
   #######################
