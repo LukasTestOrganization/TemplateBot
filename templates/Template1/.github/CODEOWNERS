@@ -1,0 +1,6 @@
+# https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-code-owners
+# The * list should be short
+# dont shoot yourself in the foot by only having a single person be able to sign off
+*      @admiralawkbar
+*.py   @amway/python-devs
+.github/workflows/*  @amway/actions-team @steve
