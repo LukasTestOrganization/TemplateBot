@@ -59,6 +59,7 @@ jobs:
               repo: context.repo.repo,
             })
             const key = getKey.data.key
+            const key_id = getKey.data.key_id
             console.log("key", key)
             const value = "${{ steps.get-token.outputs.token }}"
 
@@ -75,7 +76,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               secret_name: 'TEMPLATE_BOT_TOKEN',
-              encrypted_value: encrypted
+              encrypted_value: encrypted,
+              key_id: key_id
             })
 
       ##################################################
