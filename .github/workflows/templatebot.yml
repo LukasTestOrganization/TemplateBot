@@ -51,6 +51,7 @@ jobs:
       - name: Create the GitHub Secret
         uses: actions/github-script@v5
         with:
+          github-token: ${{ secrets.TOKEN }}
           script: |
             const sodium = require('tweetsodium')
             const key = await github.rest.actions.getRepoPublicKey({
