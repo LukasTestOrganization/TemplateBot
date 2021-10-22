@@ -54,10 +54,11 @@ jobs:
           github-token: ${{ secrets.TOKEN }}
           script: |
             const sodium = require('tweetsodium')
-            const key = await github.rest.actions.getRepoPublicKey({
+            const getKey = await github.rest.actions.getRepoPublicKey({
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
+            const key = getKey.data.key
             console.log("key", key)
             const value = "${{ steps.get-token.outputs.token }}"
 
