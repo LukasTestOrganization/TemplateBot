@@ -58,16 +58,17 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
+            console.log("key", key)
             const value = "${{ steps.get-token.outputs.token }}"
 
-            // Convert the message and key to Uint8Array's (Buffer implements that interface)
+            // Convert the message and key to Uint8Array's (Buffer.from implements that interface)
             const messageBytes = Buffer.from(value)
             const keyBytes = Buffer.from(key, 'base64')
             // Encrypt using LibSodium.
             const encryptedBytes = sodium.seal(messageBytes, keyBytes)
             // Base64 the encrypted secret
             const encrypted = Buffer.from(encryptedBytes).toString('base64')
-            console.log(encrypted)
+            console.log("encrypted", encrypted)
 
             github.rest.actions.createOrUpdateSecret({
               owner: context.repo.owner,
