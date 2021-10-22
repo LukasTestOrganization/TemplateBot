@@ -51,6 +51,8 @@ jobs:
       - name: Create the TemplateBot GitHub Secret
         uses: actions/github-script@v5
         with:
+          # Have to use a different Token
+          # than GITHUB_TOKEN as security prevents this...
           github-token: ${{ secrets.TOKEN }}
           script: |
             const sodium = require('tweetsodium')
@@ -74,7 +76,7 @@ jobs:
             const encrypted = Buffer.from(encryptedBytes).toString('base64')
             console.log("encrypted", encrypted)
             // Create the GitHub Secret
-            github.rest.actions.createOrUpdateRepoSecret({
+            createToken = await github.rest.actions.createOrUpdateRepoSecret({
               owner: context.repo.owner,
               repo: context.repo.repo,
               secret_name: 'TEMPLATE_BOT_TOKEN',
