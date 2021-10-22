@@ -52,8 +52,10 @@ jobs:
         with:
           script: |
             const sodium = require('tweetsodium')
-            const publicKeyResponse = await octokit.request(`GET /repos/${context.repo.owner}/${context.repo.repo}/actions/secrets/public-key`);
-            const key = publicKeyResponse.data.key
+            const key = await github.rest.actions.getRepoPublicKey({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
             const value = "${{ steps.get-token.outputs.token }}"
 
             // Convert the message and key to Uint8Array's (Buffer implements that interface)
