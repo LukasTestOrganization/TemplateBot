@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Dump github context
-        run:   echo "$GITHUB_CONTEXT"
+        run: echo "$GITHUB_CONTEXT"
         shell: bash
         env:
          GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -104,5 +104,5 @@ jobs:
           DEBUG: true
           GITHUB_TOKEN: ${{ secrets.TEMPLATE_BOT_TOKEN }}
           #GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
-          ORG_NAME: ${{ github.repo.owner }}
+          ORG_NAME: ${{ github.repository_owner }}
         run: ./.automation/template-the-world.sh
