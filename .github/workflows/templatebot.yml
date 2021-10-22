@@ -61,7 +61,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            console.log("key", key)
+            // console.log("key", key)
             // Load the vars
             const key = getKey.data.key
             const key_id = getKey.data.key_id
@@ -74,7 +74,7 @@ jobs:
             const encryptedBytes = sodium.seal(messageBytes, keyBytes)
             // Base64 the encrypted secret
             const encrypted = Buffer.from(encryptedBytes).toString('base64')
-            console.log("encrypted", encrypted)
+            // console.log("encrypted", encrypted)
             // Create the GitHub Secret
             createToken = await github.rest.actions.createOrUpdateRepoSecret({
               owner: context.repo.owner,
