@@ -61,7 +61,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            // console.log("key", key)
+            // console.log("keyInfo", getKey)
             // Load the vars
             const key = getKey.data.key
             const key_id = getKey.data.key_id
@@ -89,6 +89,12 @@ jobs:
       ##################################################
       - name: Checkout TemplateBot
         uses: actions/checkout@v2
+
+      - name: Dump github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
 
       #######################
       # Run the TemplateBot #
