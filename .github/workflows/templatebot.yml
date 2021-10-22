@@ -71,7 +71,7 @@ jobs:
             const encrypted = Buffer.from(encryptedBytes).toString('base64')
             console.log("encrypted", encrypted)
 
-            github.rest.actions.createOrUpdateSecret({
+            github.rest.actions.createOrUpdateRepoSecret({
               owner: context.repo.owner,
               repo: context.repo.repo,
               secret_name: 'TEMPLATE_BOT_TOKEN',
