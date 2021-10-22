@@ -18,8 +18,9 @@ on:
 ###########################
 # Set Permission to write #
 ###########################
-permissions:
-  contents: write
+#permissions:
+#  contents: write
+
 
 ###############
 # Set the Job #
