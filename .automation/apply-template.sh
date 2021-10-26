@@ -78,7 +78,12 @@ GetTemplate() {
 
   # Need to pull the template info from the updated body
   TEMPLATE=$(echo "${BODY}" |grep -m1 "\[x\]" |awk '{print $3}')
-  debug "TEMPLATE:[${TEMPLATE}]"
+  ############################################
+  # Clean any whitespace that may be entered #
+  ############################################
+  TEMPLATE_NO_WHITESPACE="$(echo -e "${TEMPLATE}" | tr -d '[:space:]')"
+  TEMPLATE="${TEMPLATE_NO_WHITESPACE}"
+  Debug "TEMPLATE:[${TEMPLATE}]"
 
   #########################
   # Check we have a value #
@@ -101,7 +106,7 @@ CopyFiles() {
   # Rsync the files into place #
   ##############################
   RSYNC_CMD=$(rsync -va "${TEMPLATEBOT_DIR}/templates/${TEMPLATE}/" . 2>&1)
-  debug "RSYNC_CMD:[${RSYNC_CMD}]"
+  Debug "RSYNC_CMD:[${RSYNC_CMD}]"
 
   #######################
   # Load the error code #
@@ -134,7 +139,7 @@ Cleanup() {
   # Remove the TemplateBot dir #
   ##############################
   REMOVE_TEMPLATEBOT_CMD=$(rm -rf "${TEMPLATEBOT_DIR}" 2>&1)
-  debug "REMOVE_TEMPLATEBOT_CMD:[${REMOVE_TEMPLATEBOT_CMD}]"
+  Debug "REMOVE_TEMPLATEBOT_CMD:[${REMOVE_TEMPLATEBOT_CMD}]"
 
   ############################
   # Check if the file exists #
@@ -151,7 +156,7 @@ Cleanup() {
   # Remove the Workflow file #
   ############################
   REMOVE_WORKFLOW_CMD=$(rm -f ".github/workflows/${TEMPLATEBOT_WORKFLOW}" 2>&1)
-  debug "REMOVE_WORKFLOW_CMD:[${REMOVE_WORKFLOW_CMD}]"
+  Debug "REMOVE_WORKFLOW_CMD:[${REMOVE_WORKFLOW_CMD}]"
 
   ############################
   # Check if the file exists #
@@ -174,7 +179,7 @@ PushToGitHub() {
   echo "-----------------------------------------------"
   echo "Setting git config of the TemplateBot..."
   CONFIG_CMD=$(git config --global user.email "template@bot.com"; git config --global user.name "TemplateBot" 2>&1)
-  debug "CONFIG_CMD:[${CONFIG_CMD}]"
+  Debug "CONFIG_CMD:[${CONFIG_CMD}]"
 
   #######################
   # Load the error code #
@@ -196,7 +201,7 @@ PushToGitHub() {
   echo "-----------------------------------------------"
   echo "Adding template files to commit..."
   ADD_CMD=$(git add . 2>&1)
-  debug "ADD_CMD:[${ADD_CMD}]"
+  Debug "ADD_CMD:[${ADD_CMD}]"
 
   #######################
   # Load the error code #
@@ -218,7 +223,7 @@ PushToGitHub() {
   echo "-----------------------------------------------"
   echo "Pushing files to GitHub..."
   PUSH_CMD=$(git commit -m "Adding template files from TemplateBot"; git push origin "HEAD:${REF}" 2>&1)
-  debug "PUSH_CMD:[${PUSH_CMD}]"
+  Debug "PUSH_CMD:[${PUSH_CMD}]"
 
   #######################
   # Load the error code #
@@ -250,7 +255,7 @@ PRComment() {
     -H 'Content-Type: application/json' \
     -d '{	"body": "TemplateBot has successfully pushed a commit to this PR.\nDue to a *limitation* with **GitHub Actions** not being able to Call other **GitHub Actions**, the last push may not trigger any defined **GitHub Actions** you may have active.\nPlease review the changes and merge accordingly.\n\nThank You,\nTemplateBot" }' 2>&1)
 
-  debug "CREATE_CMD:[${CREATE_CMD}]"
+  Debug "CREATE_CMD:[${CREATE_CMD}]"
 
   #######################
   # Load the error code #
