@@ -24,7 +24,7 @@ on:
 jobs:
   build:
     # Name the Job
-    name: IssueOPs
+    name: IssueOps
     # Set the agent to run on
     runs-on: ubuntu-latest
 
@@ -44,8 +44,9 @@ jobs:
       - name: Checkout TemplateBot Code
         uses: actions/checkout@v2
         with:
-          repository: lukastestorganization/templatebot
+          repository: LukasTestOrganization/TemplateBot
           path: templatebotrepo
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       ##############################################################
       # Run the templatebot script to apply template to repository #
@@ -57,4 +58,6 @@ jobs:
           REPO: ${{github.repository}}
           PR: ${{ github.event.number }}
           DEBUG: true
-        run: ./.automation/apply-template.sh "${BODY}" "${REF}" "${REPO}" "${PR}"
+        run: |
+          ls -la
+          templatebotrepo/.automation/apply-template.sh "${BODY}" "${REF}" "${REPO}" "${PR}"
