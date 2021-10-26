@@ -335,7 +335,7 @@ TemplateRepo() {
     git config --global user.email "template@bot.com" 2>&1
     cd "${REPO_NAME}" || exit 1 2>&1
     git add . 2>&1
-    git branch -b "TemplateBot" 2>&1
+    git checkout -b "TemplateBot" 2>&1
     git commit -m "Adding template to repository" 2>&1
     git push --set-upstream origin TemplateBot 2>&1
   )
