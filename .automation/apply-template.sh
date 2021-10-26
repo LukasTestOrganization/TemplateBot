@@ -20,7 +20,7 @@
 # GLOBALS #
 ###########
 GITHUB_API='https://api.github.com' # API URL
-DEBUG="${DEBUG:-false}" # Set to 'true' to enable debugging
+DEBUG="${DEBUG:-false}" # Set to 'true' to enable Debugging
 TEMPLATE=''             # Pulled form the body | template1, template2, etc...
 ##############
 # Input vars #
@@ -48,10 +48,10 @@ Header() {
   echo "######################################################"
   echo "######################################################"
   echo ""
-  debug "BODY:[${BODY}]"
-  debug "REF:[${REF}]"
-  debug "REPO:[${REPO}]"
-  debug "PR:[${PR}]"
+  Debug "BODY:[${BODY}]"
+  Debug "REF:[${REF}]"
+  Debug "REPO:[${REPO}]"
+  Debug "PR:[${PR}]"
 
 }
 ################################################################################
