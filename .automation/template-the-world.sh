@@ -354,6 +354,7 @@ TemplateRepo() {
     git checkout -b "TemplateBot" 2>&1
     git commit -m "Adding template to repository" 2>&1
     git fetch origin "${DEFAULT_BRANCH}" 2>&1
+    git pull 2>&1
     git push --set-upstream origin TemplateBot 2>&1
   )
 
