@@ -384,6 +384,7 @@ TemplateRepo() {
   ###########################
   CREATE_PR_CMD=$(curl -s --fail -X POST \
     -H "Accept: application/vnd.github.v3+json" \
+    -H "authorization: Bearer ${GITHUB_TOKEN}" \
     "${GITHUB_API}/repos/${ORG_NAME}/${REPO_NAME}/pulls" \
     -d "{\"head\":\"TemplateBot\",\"base\":\"${DEFAULT_BRANCH}\", \"title\": \"TemplateBot Adding base template\", \"body\": \"${PR_BODY_STRING}\"}" 2>&1)
 
