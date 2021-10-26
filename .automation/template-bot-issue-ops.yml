@@ -48,13 +48,19 @@ jobs:
           path: templatebotrepo
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Dump github context
+        run: echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
+
       ##############################################################
       # Run the templatebot script to apply template to repository #
       ##############################################################
       - name: Run TemplateBot
         env:
           BODY: ${{ github.event.pull_request.body }}
-          REF: ${{ github.event.head_ref }}
+          REF: ${{ github.head_ref }}
           REPO: ${{github.repository}}
           PR: ${{ github.event.number }}
           DEBUG: true
