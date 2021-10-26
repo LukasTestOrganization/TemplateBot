@@ -222,16 +222,16 @@ PushToGitHub() {
   ###############################
   DEFAULT_BRANCH=$( git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
   Debug "DEFAULT_BRANCH:${DEFAULT_BRANCH}"
-  
+
+  git branch -va
+  git branch -r
   ###################
   # Commit and push #
   ###################
   echo "-----------------------------------------------"
   echo "Pushing files to GitHub..."
   PUSH_CMD=$(
-    git config --global user.name "Template Bot" 2>&1
-    git config --global user.email "template@bot.com" 2>&1
-    git commit -m "Adding template files from TemplateBot"
+    git commit -m "Adding template files from TemplateBot" 2>&1
     git fetch origin "${DEFAULT_BRANCH}" 2>&1
     git pull 2>&1
     git push origin "HEAD:${REF}" 2>&1)
