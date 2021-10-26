@@ -360,7 +360,7 @@ TemplateRepo() {
   # Get the default branch name #
   ###############################
   DEFAULT_BRANCH=$(cd "${REPO_NAME}" || exit 1; git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-  debug "DEFAULT_BRANCH:${DEFAULT_BRANCH}"
+  Debug "DEFAULT_BRANCH:${DEFAULT_BRANCH}"
 
   #######################################
   # Check that we found the branch name #
@@ -417,7 +417,7 @@ FormatPRBody() {
   ############################
   # Check if we have a value #
   ############################
-  if [ -n "${PR_BODY_STRING}" ]; then
+  if [ -z "${PR_BODY_STRING}" ]; then
     # error
     echo "ERROR! Failed to convert template to String!"
     echo "ERROR:[${PR_BODY_STRING}]"
