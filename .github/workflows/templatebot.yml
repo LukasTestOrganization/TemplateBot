@@ -102,7 +102,7 @@ jobs:
       - name: Find and Add Templates
         env:
           DEBUG: true
-          GITHUB_TOKEN: ${{ secrets.TEMPLATE_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           #GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
           ORG_NAME: ${{ github.repository_owner }}
         run: ./.automation/template-the-world.sh
