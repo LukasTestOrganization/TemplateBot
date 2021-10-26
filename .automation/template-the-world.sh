@@ -327,6 +327,22 @@ TemplateRepo() {
     exit 1
   fi
 
+  ###############################
+  # Get the default branch name #
+  ###############################
+  DEFAULT_BRANCH=$(cd "${REPO_NAME}" || exit 1; git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+  Debug "DEFAULT_BRANCH:${DEFAULT_BRANCH}"
+
+  #######################################
+  # Check that we found the branch name #
+  #######################################
+  if [ -z "${DEFAULT_BRANCH}" ]; then
+    echo "ERROR! Failed to get the default branch!"
+    # Run cleanup
+    CleanupWorkspace "${REPO_NAME}"
+    exit 1
+  fi
+
   ######################
   # Push Files to repo #
   ######################
@@ -337,6 +353,7 @@ TemplateRepo() {
     git add . 2>&1
     git checkout -b "TemplateBot" 2>&1
     git commit -m "Adding template to repository" 2>&1
+    git fetch origin "${DEFAULT_BRANCH}" 2>&1
     git push --set-upstream origin TemplateBot 2>&1
   )
 
@@ -351,22 +368,6 @@ TemplateRepo() {
   if [ ${ERROR_CODE} -ne 0 ]; then
     echo "ERROR! Failed to push to GitHub!"
     echo "ERROR:[${PUSH_CMD}]"
-    # Run cleanup
-    CleanupWorkspace "${REPO_NAME}"
-    exit 1
-  fi
-
-  ###############################
-  # Get the default branch name #
-  ###############################
-  DEFAULT_BRANCH=$(cd "${REPO_NAME}" || exit 1; git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-  Debug "DEFAULT_BRANCH:${DEFAULT_BRANCH}"
-
-  #######################################
-  # Check that we found the branch name #
-  #######################################
-  if [ -z "${DEFAULT_BRANCH}" ]; then
-    echo "ERROR! Failed to get the default branch!"
     # Run cleanup
     CleanupWorkspace "${REPO_NAME}"
     exit 1
