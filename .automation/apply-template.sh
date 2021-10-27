@@ -279,6 +279,8 @@ CheckoutBranch() {
   ########################
   # Run checkout command #
   ########################
+  cho "-----------------------------------------------"
+  echo "Checkout of branch:[${REF}] from GitHub..."
   CHECKOUT_CMD=$(git checkout "${REF}" 2>&1)
 
   Debug "CREATE_CMD:[${CREATE_CMD}]"
