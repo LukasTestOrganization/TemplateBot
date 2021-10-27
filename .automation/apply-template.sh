@@ -217,14 +217,6 @@ PushToGitHub() {
     exit 1
   fi
 
-  ###############################
-  # Get the default branch name #
-  ###############################
-  DEFAULT_BRANCH=$( git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-  Debug "DEFAULT_BRANCH:${DEFAULT_BRANCH}"
-
-  git branch -va
-  git branch -r
   ###################
   # Commit and push #
   ###################
@@ -232,8 +224,6 @@ PushToGitHub() {
   echo "Pushing files to GitHub..."
   PUSH_CMD=$(
     git commit -m "Adding template files from TemplateBot" 2>&1
-    git fetch origin "${DEFAULT_BRANCH}" 2>&1
-    git pull 2>&1
     git push origin "HEAD:${REF}" 2>&1)
   Debug "PUSH_CMD:[${PUSH_CMD}]"
 
@@ -284,6 +274,30 @@ PRComment() {
   fi
 }
 ################################################################################
+#### Function CheckoutBranch ###################################################
+CheckoutBranch() {
+  ########################
+  # Run checkout command #
+  ########################
+  CHECKOUT_CMD=$(git checkout "${REF}" 2>&1)
+
+  Debug "CREATE_CMD:[${CREATE_CMD}]"
+
+  #######################
+  # Load the error code #
+  #######################
+  ERROR_CODE=$?
+
+  ##############################
+  # Check the shell for errors #
+  ##############################
+  if [ ${ERROR_CODE} -ne 0 ]; then
+    echo "ERROR! Failed to checkout source code REF:[${REF}]!"
+    echo "ERROR:[${CHECKOUT_CMD}]"
+    exit 1
+  fi
+}
+################################################################################
 #### Function Footer ###########################################################
 Footer() {
   #######################################
@@ -309,6 +323,11 @@ Header
 # Get the template that is being used #
 #######################################
 GetTemplate
+
+#######################
+# Checkout the branch #
+#######################
+CheckoutBranch
 
 #####################################
 # Copy files and folders into place #
