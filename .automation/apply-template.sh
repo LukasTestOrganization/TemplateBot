@@ -281,23 +281,7 @@ CheckoutBranch() {
   ########################
   cho "-----------------------------------------------"
   echo "Checkout of branch:[${REF}] from GitHub..."
-  CHECKOUT_CMD=$(git checkout "${REF}" 2>&1)
-
-  Debug "CREATE_CMD:[${CREATE_CMD}]"
-
-  #######################
-  # Load the error code #
-  #######################
-  ERROR_CODE=$?
-
-  ##############################
-  # Check the shell for errors #
-  ##############################
-  if [ ${ERROR_CODE} -ne 0 ]; then
-    echo "ERROR! Failed to checkout source code REF:[${REF}]!"
-    echo "ERROR:[${CHECKOUT_CMD}]"
-    exit 1
-  fi
+  git checkout "${REF}" 2>&1
 }
 ################################################################################
 #### Function Footer ###########################################################
